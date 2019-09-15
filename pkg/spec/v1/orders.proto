@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package cqrs.orders;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "v1";
+
+service Orders {
+    rpc CreateOrder(Order) returns (Order) {}
+}
+
+message Order {
+    string name = 1;
+
+    google.protobuf.Timestamp create_time = 2;
+    google.protobuf.Timestamp update_time = 3;
+    google.protobuf.Timestamp fullfill_time = 4;
+    
+    repeated OrderItem items = 5;
+}
+
+message OrderItem {
+    string name = 1;
+
+    Item item = 3;
+    int32 pieces = 4;
+}
+
+message Item {
+    string name = 1;
+
+    string display_name = 2;
+    float price = 3;
+}
